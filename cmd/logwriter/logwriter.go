@@ -3,11 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 	"github.com/Ramzeth/logwriter/gwlog"
+	"os"
 	"strings"
 )
-
 
 func usage() {
 	fmt.Fprintf(os.Stderr, "usage: %s Description\n", os.Args[0])
@@ -15,7 +14,7 @@ func usage() {
 	os.Exit(2)
 }
 
-func main()  {
+func main() {
 	// Check flags
 	flag.Usage = usage
 	flag.Parse()
@@ -23,7 +22,6 @@ func main()  {
 		flag.Usage()
 		os.Exit(1)
 	}
-	description := strings.Join(flag.Args()," ")
-	gwlog.Logwrite("Custom operator record",description,"")
+	description := strings.Join(flag.Args(), " ")
+	gwlog.Logwrite("Custom operator record", "", description, "")
 }
-

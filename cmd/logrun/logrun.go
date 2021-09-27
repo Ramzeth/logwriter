@@ -3,13 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 	"github.com/Ramzeth/logwriter/gwlog"
+	log "github.com/sirupsen/logrus"
+	"os"
 	"os/exec"
 	"strings"
-	log "github.com/sirupsen/logrus"
 )
-
 
 func usage() {
 	fmt.Fprintf(os.Stderr, "usage: %s Description\n", os.Args[0])
@@ -17,7 +16,7 @@ func usage() {
 	os.Exit(2)
 }
 
-func main()  {
+func main() {
 	// Check flags
 	flag.Usage = usage
 	flag.Parse()
@@ -30,7 +29,7 @@ func main()  {
 	// search for tool path
 	toolPath, err := exec.LookPath(tool)
 	if err != nil {
-		log.Fatalf("Unable to find tool: %v",tool)
+		log.Fatalf("Unable to find tool: %v", tool)
 	}
 	toolArgs := flag.Args()[1:]
 	cmd := exec.Command(toolPath, toolArgs...)
@@ -39,8 +38,7 @@ func main()  {
 		log.Errorf(err.Error())
 	}
 	fmt.Print(string(output))
-	description := strings.Join(flag.Args()," ")
-	gwlog.Logwrite(tool,description,string(output))
+	command := strings.Join(flag.Args(), " ")
+	gwlog.Logwrite(tool, command, "Custom tool with logrun", string(output))
 
 }
-
