@@ -40,7 +40,7 @@ func (r row) generate() (rowslice []string) {
 	rowslice = append(rowslice, r.operator_name)
 	return
 }
-func Logwrite(tool, command, description, output string, filename string) {
+func Logwrite(source_ip, dest_ip, tool, user_context, command, description, output, comments, filename string) {
 	// Prepare CSV writer
 	currentUser, err := user.Current()
 	if err != nil {
@@ -58,8 +58,12 @@ func Logwrite(tool, command, description, output string, filename string) {
 	r.oplog_id = os.Getenv("OPLOG_ID")
 	r.start_date = time.Now()
 	r.end_date = time.Now()
+	r.source_ip = source_ip
+	r.dest_ip = dest_ip
 	r.tool = tool
+	r.user_context = user_context
 	r.output = output
+	r.comments = comments
 	r.description = description
 	r.command = command
 	r.operator_name = currentUser.Username
