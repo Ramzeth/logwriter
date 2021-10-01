@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"bufio"
 )
 
 func usage() {
@@ -33,12 +34,19 @@ func main() {
 	}
 	toolArgs := flag.Args()[1:]
 	cmd := exec.Command(toolPath, toolArgs...)
-	output, err := cmd.Output()
-	if err != nil {
-		log.Errorf(err.Error())
+	stdout, _ := cmd.StdoutPipe()
+	cmd.Start()
+
+	scanner := bufio.NewScanner(stdout)
+	scanner.Split(bufio.ScanLines)
+	output:=""
+	for scanner.Scan() {
+		m := scanner.Text()
+		fmt.Println(m)
+		output=output+m+"\n"
 	}
-	fmt.Print(string(output))
+	cmd.Wait()
 	command := strings.Join(flag.Args(), " ")
-	gwlog.Logwrite(tool, command, "Custom tool with logrun", string(output))
+	gwlog.Logwrite(tool, command, "Custom tool with logrun", string(output),"gwlog.csv")
 
 }
