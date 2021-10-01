@@ -47,7 +47,6 @@ func main() {
 	}
 	cmd.Wait()
 	command := strings.Join(flag.Args(), " ")
-	gwlog.Logwrite(tool, command, "Custom tool with logrun", string(output),"gwlog_full.csv")
-	gwlog.Logwrite(tool, command, "Custom tool with logrun","See at gwlog_full.csv","gwlog.csv")
+	gwlog.Logwrite(tool, command, "Custom tool with logrun", string(output),"gwlog.csv")
 
 }
