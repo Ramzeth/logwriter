@@ -40,14 +40,14 @@ func (r row) generate() (rowslice []string) {
 	rowslice = append(rowslice, r.operator_name)
 	return
 }
-func Logwrite(tool, command, description, output string) {
+func Logwrite(tool, command, description, output string, filename string) {
 	// Prepare CSV writer
 	currentUser, err := user.Current()
 	if err != nil {
 		log.Fatal(fmt.Sprintf("Error while getting current username: %v", err))
 	}
 	homeDir := currentUser.HomeDir
-	fcsv, err := os.OpenFile(path.Join(homeDir, "gwlog.csv"), os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	fcsv, err := os.OpenFile(path.Join(homeDir, filename), os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 	if err != nil {
 		log.Fatal(fmt.Sprintf("Error while output CSV file open: %v", err))
 	}

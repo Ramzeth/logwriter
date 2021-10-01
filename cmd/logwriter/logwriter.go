@@ -23,5 +23,5 @@ func main() {
 		os.Exit(1)
 	}
 	description := strings.Join(flag.Args(), " ")
-	gwlog.Logwrite("Custom operator record", "", description, "")
+	gwlog.Logwrite("Custom operator record", "", description, "","gwlog.csv")
 }
